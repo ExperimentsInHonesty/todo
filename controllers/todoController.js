@@ -2,13 +2,13 @@ const Todo = require('../models/todo');
 
 const todoController = {
   createTodo: (req, res) => {
-    Todo.create({ description: 'laundry' }, (err, item) => {
+    Todo.create({ description: req.body.description, recurring: req.body.recurring }, (err, item) => {
       if (err) return handleError(err);
       return res.json(item);
     });
   },
   findTodo: (req, res) => {
-    Todo.findById(req.params.itemId, (err, item) => {
+    Todo.findById(req.params.todoId, (err, item) => {
       if (err) return res.status(500).send(err);
       return res.status(200).send(item);
     });
@@ -20,6 +20,7 @@ const todoController = {
     });
   },
   deleteTodo: (req, res) => {
+    console.log('entering delete todo');
     Todo.findByIdAndRemove(req.params.todoId, (err, item) => {
       if (err) return res.status(500).send(err);
       const response = {

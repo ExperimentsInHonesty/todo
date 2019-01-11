@@ -5,7 +5,10 @@ const schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  completed: Boolean,
+  completed: {
+    type: Boolean,
+    default: false,
+  },
   recurring: Boolean,
 });
 const Todo = mongoose.model('Todo', schema);
