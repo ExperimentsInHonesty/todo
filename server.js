@@ -13,6 +13,9 @@ app.get('/main.js', (req, res) => res.sendFile(path.join(__dirname, 'dist', 'mai
 app.get('/main.css', (req, res) => res.sendFile(path.join(__dirname, 'dist', 'main.css')));
 app.get('/second', (req, res) => res.sendFile(path.join(__dirname, 'dist', 'secondPage.html')));
 app.post('/todo', todoController.createTodo);
+app.get('/todo', todoController.findTodo);
+app.put('/todo', todoController.editTodo);
+app.delete('/todo', todoController.deleteTodo);
 
 
 app.listen(3000);
