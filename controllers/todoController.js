@@ -23,7 +23,7 @@ const todoController = {
     Todo.findByIdAndRemove(req.params.todoId, (err, item) => {
       if (err) return res.status(500).send(err);
       const response = {
-        message: "Todo successfully deleted",
+        message: 'Todo successfully deleted',
         id: item.id,
       };
       return res.status(200).send(response);

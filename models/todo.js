@@ -8,6 +8,6 @@ const schema = new mongoose.Schema({
   completed: Boolean,
   recurring: Boolean,
 });
-const Todo = mongoose.model("Todo", schema);
+const Todo = mongoose.model('Todo', schema);
 
 module.exports = Todo;
