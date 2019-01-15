@@ -1,4 +1,4 @@
-import App from "./App";
+import App from "./App.jsx";
 import style from "./main.css";
 
 const arr = [1, 2, 3];

@@ -20,6 +20,7 @@ app.post('/todo', jsonParser, todoController.createTodo);
 app.get('/todo/:todoId', todoController.findTodo);
 app.put('/todo/:todoId', jsonParser, todoController.editTodo);
 app.delete('/todo/:todoId', todoController.deleteTodo);
+app.get('/todo/', todoController.findAllTodos);
 
 
 app.listen(3000);

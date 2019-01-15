@@ -3,7 +3,7 @@ const Todo = require('../models/todo');
 const todoController = {
   createTodo: (req, res) => {
     Todo.create({ description: req.body.description, recurring: req.body.recurring }, (err, item) => {
-      if (err) return handleError(err);
+      if (err) return res.status(500).send(err);
       return res.json(item);
     });
   },
@@ -28,6 +28,12 @@ const todoController = {
         id: item.id,
       };
       return res.status(200).send(response);
+    });
+  },
+  findAllTodos: (req, res) => {
+    Todo.find({}, (err, items) => {
+      if (err) return res.status(500).send(err);
+      return res.send(items);
     });
   },
 };
