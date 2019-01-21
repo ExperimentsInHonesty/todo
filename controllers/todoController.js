@@ -2,6 +2,7 @@ const Todo = require('../models/todo');
 
 const todoController = {
   createTodo: (req, res) => {
+    // console.log(req.body)
     Todo.create({ description: req.body.description, recurring: req.body.recurring }, (err, item) => {
       if (err) return res.status(500).send(err);
       return res.json(item);
