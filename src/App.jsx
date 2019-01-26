@@ -61,16 +61,13 @@ class App extends React.Component {
   }
 
   editTodo(event) {
+    const getDescription = event.target.parentNode.parentNode.childNodes[1].textContent;
     const id = event.target.name;
-    fetch(`/todo/${id}`, {
-      method: 'get',
-    })
-      .then(response => response.json())
-      .then(data => this.setState({
-        tempTodoDescription: data.description,
-        editingToDo: true,
-        idOfTodDoBeingEdited: id,
-      }));
+    this.setState({
+      tempTodoDescription: getDescription,
+      editingToDo: true,
+      idOfTodDoBeingEdited: id,
+    });
   }
 
   updateTodo() {
@@ -80,7 +77,11 @@ class App extends React.Component {
       body: JSON.stringify({ description: tempTodoDescription }),
       headers: { 'content-type': 'application/json' },
     })
-      .then(() => this.setState({ tempTodoDescription: '', editingToDo: false }))
+      .then(() => this.setState({
+        tempTodoDescription: '',
+        editingToDo: false,
+        idOfTodDoBeingEdited: null,
+      }))
       .then(() => this.grabTodos());
   }
 
