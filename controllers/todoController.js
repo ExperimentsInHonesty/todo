@@ -3,7 +3,8 @@ const Todo = require('../models/todo');
 const todoController = {
   createTodo: (req, res) => {
     // console.log(req.body)
-    Todo.create({ description: req.body.description, recurring: req.body.recurring }, (err, item) => {
+    const { description, recurring } = req.body;
+    Todo.create({ description, recurring }, (err, item) => {
       if (err) return res.status(500).send(err);
       return res.json(item);
     });
@@ -21,8 +22,7 @@ const todoController = {
     });
   },
   deleteTodo: (req, res) => {
-    console.log('entering delete todo');
-    Todo.findByIdAndRemove(req.params.todoId, (err, item) => {
+    Todo.findByIdAndDelete(req.params.todoId, (err, item) => {
       if (err) return res.status(500).send(err);
       const response = {
         message: 'Todo successfully deleted',
