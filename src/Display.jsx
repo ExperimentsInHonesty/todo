@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Todo from './Todo.jsx';
 
 
@@ -16,14 +16,14 @@ const Display = (props) => {
       editTodo={props.editTodo}
     />
   ));
-  // todoComponents.propTypes = {
-  //   completed: PropTypes.bool,
-  //   recurring: PropTypes.bool,
-  //   description: PropTypes.string,
-  //   id: PropTypes.number,
-  //   deleteTodo: PropTypes.func,
-  //   editTodo: PropTypes.func,
-  // };
+  todoComponents.propTypes = {
+    completed: PropTypes.bool,
+    recurring: PropTypes.bool,
+    description: PropTypes.string,
+    id: PropTypes.number,
+    deleteTodo: PropTypes.func,
+    editTodo: PropTypes.func,
+  };
 
   return (
     <div>

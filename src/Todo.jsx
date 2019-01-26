@@ -1,5 +1,5 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const Todo = ({
   recurring,
@@ -29,14 +29,14 @@ const Todo = ({
   );
 };
 
-// Todo.propTypes = {
-//   completed: PropTypes.bool,
-//   recurring: PropTypes.bool,
-//   description: PropTypes.string,
-//   id: PropTypes.number,
-//   deleteTodo: PropTypes.func,
-//   editTodo: PropTypes.func,
-// };
+Todo.propTypes = {
+  completed: PropTypes.bool,
+  recurring: PropTypes.bool,
+  description: PropTypes.string,
+  id: PropTypes.number,
+  deleteTodo: PropTypes.func,
+  editTodo: PropTypes.func,
+};
 
 
 export default Todo;

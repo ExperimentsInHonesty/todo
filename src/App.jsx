@@ -101,12 +101,14 @@ class App extends React.Component {
         <InputTodo
         addTodoTolList={this.inputTodo}
         storingInputInState={this.storingTempTodo}
-        currentInput={tempTodoDescription} />
+        currentInput={tempTodoDescription}
+        updateTodo={this.updateTodo}
+        />
         <Display
         allTodos={todos}
         deleteTodo={this.deleteTodo}
         editTodo={this.editTodo}
-        updateTodo={this.updateTodo}/>
+        />
       </div>
     );
   }
