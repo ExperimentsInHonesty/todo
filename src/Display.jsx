@@ -8,6 +8,7 @@ const Display = (props) => {
   // console.log(props);
   const todoComponents = props.allTodos.map(todo => (
     <Todo
+      key={todo._id}
       completed={todo.completed}
       recurring={todo.recurring}
       description={todo.description}
@@ -21,8 +22,10 @@ const Display = (props) => {
     recurring: PropTypes.bool,
     description: PropTypes.string,
     id: PropTypes.number,
-    deleteTodo: PropTypes.func,
-    editTodo: PropTypes.func,
+    deleteTodo: PropTypes.function,
+    editTodo: PropTypes.function,
+    allTodos: PropTypes.array,
+    // todo: PropTypes.element,
   };
 
   return (

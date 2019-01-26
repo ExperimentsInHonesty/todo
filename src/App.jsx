@@ -20,6 +20,7 @@ class App extends React.Component {
     this.deleteTodo = this.deleteTodo.bind(this);
     this.editTodo = this.editTodo.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
+    this.renderButton = this.renderButton.bind(this);
   }
 
   componentDidMount() {
@@ -76,33 +77,36 @@ class App extends React.Component {
   }
 
   updateTodo() {
-  // we need something else that if editingTodo
-  // in state is true that it displays Update
-  // instead of Add on in the InputTodo.jsx page
-  // see InputTodo.jsx for code I tried to use
     const { tempTodoDescription, idOfTodDoBeingEdited } = this.state;
-    // const id = event.target.name;
     fetch(`/todo/${idOfTodDoBeingEdited}`, {
       method: 'put',
       body: JSON.stringify({ description: tempTodoDescription }),
       headers: { 'content-type': 'application/json' },
     })
-      .then(() => this.setState({ tempTodoDescription: '' }))
+      .then(() => this.setState({ tempTodoDescription: '', editingToDo: false }))
       .then(() => this.grabTodos());
+  }
+
+  renderButton() {
+    if (this.state.editingToDo) {
+      return (
+        <button type="button" onClick={this.updateTodo}>Update</button>
+      );
+    }
+    return (
+        <button type="button" onClick={this.inputTodo}>Add</button>
+    );
   }
 
   render() {
     const { todos, tempTodoDescription } = this.state;
     return (
       <div>
-        <p>React here!</p>
-        {/* {console.log(this.state.todos)} */}
-        {/* {console.log(this.state.isLoading)} */}
+        <p>Put text here</p>
         <InputTodo
-        addTodoTolList={this.inputTodo}
         storingInputInState={this.storingTempTodo}
         currentInput={tempTodoDescription}
-        updateTodo={this.updateTodo}
+        renderButton={this.renderButton}
         />
         <Display
         allTodos={todos}
@@ -113,10 +117,6 @@ class App extends React.Component {
     );
   }
 }
-
-// App.propTypes = {
-//   children: React.PropTypes.node,
-// };
 
 export default App;
 ReactDOM.render(<App />, document.getElementById('app'));

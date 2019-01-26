@@ -17,7 +17,7 @@ const Todo = ({
   if (recurring) { recurringDisplayText = 'yes'; }
   if (completed) { completedDisplayText = 'yes'; }
   return (
-    <div key={Todo.id}>
+    <div key={id}>
       <tr>
         <td>{completedDisplayText}</td>
         <td>{description}</td>
