@@ -3,18 +3,20 @@ import PropTypes from 'prop-types';
 import Todo from './Todo.jsx';
 
 
-const Display = (props) => {
-  // console.log(allTodos);
-  // console.log(props);
-  const todoComponents = props.allTodos.map(todo => (
+const Display = ({
+  deleteTodo,
+  editTodo,
+  allTodos,
+}) => {
+  const todoComponents = allTodos.map(todo => (
     <Todo
       key={todo._id}
       completed={todo.completed}
       recurring={todo.recurring}
       description={todo.description}
       id={todo._id}
-      deleteTodo={props.deleteTodo}
-      editTodo={props.editTodo}
+      deleteTodo={deleteTodo}
+      editTodo={editTodo}
     />
   ));
   todoComponents.propTypes = {
@@ -22,10 +24,12 @@ const Display = (props) => {
     recurring: PropTypes.bool,
     description: PropTypes.string,
     id: PropTypes.number,
+  };
+
+  Display.propTypes = {
     deleteTodo: PropTypes.function,
     editTodo: PropTypes.function,
     allTodos: PropTypes.array,
-    // todo: PropTypes.element,
   };
 
   return (

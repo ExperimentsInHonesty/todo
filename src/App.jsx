@@ -61,9 +61,6 @@ class App extends React.Component {
   }
 
   editTodo(event) {
-    // fetch description and other details by id
-    // set tempTodoDescription in state to fetched item description
-    // set editingTodo in state to true
     const id = event.target.name;
     fetch(`/todo/${id}`, {
       method: 'get',

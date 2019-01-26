@@ -15,13 +15,19 @@ const todoController = {
     });
   },
   editTodo: (req, res) => {
-    Todo.findByIdAndUpdate(req.params.todoId, req.body, { new: true }, (err, item) => {
+    Todo.updateOne({ _id: req.params.todoId }, req.body, (err, item) => {
       if (err) return res.status(500).send(err);
       return res.send(item);
     });
+
+    // editTodo: (req, res) => {
+    //   Todo.findByIdAndUpdate(req.params.todoId, req.body, { new: true }, (err, item) => {
+    //     if (err) return res.status(500).send(err);
+    //     return res.send(item);
+    //   });
   },
   deleteTodo: (req, res) => {
-    Todo.findByIdAndDelete(req.params.todoId, (err, item) => {
+    Todo.findOneAndDelete({ _id: req.params.todoId }, (err, item) => {
       if (err) return res.status(500).send(err);
       const response = {
         message: 'Todo successfully deleted',

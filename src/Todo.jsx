@@ -8,10 +8,8 @@ const Todo = ({
   id,
   deleteTodo,
   editTodo,
-  // tempTodoDescription,
+
 }) => {
-  // const recurring = props.recurring
-  // const {recurring, completed} = props
   let recurringDisplayText = 'no';
   let completedDisplayText = 'no';
   if (recurring) { recurringDisplayText = 'yes'; }
