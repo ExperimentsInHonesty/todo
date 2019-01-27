@@ -24,6 +24,7 @@ class App extends React.Component {
     this.updateTodo = this.updateTodo.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.cancelUpdateAndAdd = this.cancelUpdateAndAdd.bind(this);
+    this.completeTodo = this.completeTodo.bind(this);
   }
 
   componentDidMount() {
@@ -130,6 +131,45 @@ class App extends React.Component {
       .then(() => this.grabTodos());
   }
 
+  // completeTodo(event) {
+  //   console.log(event.target.name);
+  //   (this.setState({
+  //     tempCompletedStatus: true,
+  //     idOfTodDoBeingEdited: event.target.name,
+  //   }));
+  //   const {
+  //     tempCompletedStatus,
+  //     idOfTodDoBeingEdited,
+  //   } = this.state;
+  //   fetch(`/todo/${idOfTodDoBeingEdited}`, {
+  //     method: 'put',
+  //     body: JSON.stringify({
+  //       completed: tempCompletedStatus,
+  //     }),
+  //     headers: { 'content-type': 'application/json' },
+  //   })
+  //     .then(() => this.setState({
+  //       // tempTodoDescription: '',
+  //       // tempRecurringStatus: false,
+  //       tempCompletedStatus: false,
+  //       // editingToDo: false,
+  //       idOfTodDoBeingEdited: null,
+  //     }))
+  //     .then(() => this.grabTodos());
+  // }
+
+  completeTodo(event) {
+    const id = event.target.name;
+    fetch(`/todo/${id}`, {
+      method: 'put',
+      body: JSON.stringify({
+        completed: true,
+      }),
+      headers: { 'content-type': 'application/json' },
+    })
+      .then(() => this.grabTodos());
+  }
+
   renderButton() {
     if (this.state.editingToDo) {
       return (
@@ -161,6 +201,7 @@ class App extends React.Component {
         allTodos={todos}
         deleteTodo={this.deleteTodo}
         editTodo={this.editTodo}
+        completeTodo={this.completeTodo}
         />
       </div>
     );

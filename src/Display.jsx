@@ -7,6 +7,7 @@ const Display = ({
   deleteTodo,
   editTodo,
   allTodos,
+  completeTodo,
 }) => {
   const todoComponents = allTodos.map(todo => (
     <Todo
@@ -17,8 +18,23 @@ const Display = ({
       id={todo._id}
       deleteTodo={deleteTodo}
       editTodo={editTodo}
+      completeTodo={completeTodo}
     />
   ));
+
+  const todoComponentCompleted = allTodos.map(todo => (
+    <Todo
+      key={todo._id}
+      completed={todo.completed}
+      recurring={todo.recurring}
+      description={todo.description}
+      id={todo._id}
+      deleteTodo={deleteTodo}
+      editTodo={editTodo}
+      completeTodo={completeTodo}
+    />
+  ));
+
   todoComponents.propTypes = {
     completed: PropTypes.bool,
     recurring: PropTypes.bool,
@@ -29,6 +45,7 @@ const Display = ({
   Display.propTypes = {
     deleteTodo: PropTypes.function,
     editTodo: PropTypes.function,
+    completeTodo: PropTypes.function,
     allTodos: PropTypes.array,
   };
 
