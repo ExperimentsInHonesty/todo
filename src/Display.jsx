@@ -8,34 +8,47 @@ const Display = ({
   editTodo,
   allTodos,
   completeTodo,
+  unCompleteTodo,
 }) => {
-  const todoComponents = allTodos.map(todo => (
+  const notCompleted = allTodos.filter(todo => !todo.completed);
+  const todoComponents = notCompleted.map(todo => (
     <Todo
       key={todo._id}
-      completed={todo.completed}
+      // completed={todo.completed}
       recurring={todo.recurring}
       description={todo.description}
       id={todo._id}
+      completed={todo.completed}
       deleteTodo={deleteTodo}
       editTodo={editTodo}
       completeTodo={completeTodo}
+      unCompleteTodo={unCompleteTodo}
     />
   ));
 
-  const todoComponentCompleted = allTodos.map(todo => (
+  const completed = allTodos.filter(todo => todo.completed);
+  const todoComponentsCompleted = completed.map(todo => (
     <Todo
       key={todo._id}
-      completed={todo.completed}
+      // completed={todo.completed}
       recurring={todo.recurring}
       description={todo.description}
+      completed={todo.completed}
       id={todo._id}
       deleteTodo={deleteTodo}
       editTodo={editTodo}
       completeTodo={completeTodo}
+      unCompleteTodo={unCompleteTodo}
     />
   ));
 
   todoComponents.propTypes = {
+    completed: PropTypes.bool,
+    recurring: PropTypes.bool,
+    description: PropTypes.string,
+    id: PropTypes.number,
+  };
+  todoComponentsCompleted.propTypes = {
     completed: PropTypes.bool,
     recurring: PropTypes.bool,
     description: PropTypes.string,
@@ -46,6 +59,7 @@ const Display = ({
     deleteTodo: PropTypes.function,
     editTodo: PropTypes.function,
     completeTodo: PropTypes.function,
+    unCompleteTodo: PropTypes.function,
     allTodos: PropTypes.array,
   };
 
@@ -54,11 +68,7 @@ const Display = ({
       <table className="blueTable">
         <thead>
           <tr>
-            <th>Completed</th>
-            <th>Description</th>
-            <th>Recurring</th>
-            <th>Delete</th>
-            <th>Edit</th>
+            <th>Current Todo's</th>
           </tr>
         </thead>
         <tfoot>
@@ -72,6 +82,25 @@ const Display = ({
         </tfoot>
         <tbody>
           {todoComponents}
+        </tbody>
+      </table>
+      <table className="blueTable">
+        <thead>
+          <tr>
+            <th>Completed Todo's</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colSpan="4">
+              {/* <div className="links"><a href="#">&laquo;</a>
+            <a className="active" href="#">1</a> <a href="#">2</a>
+            <a href="#">3</a> <a href="#">4</a> <a href="#">&raquo;</a></div> */}
+            </td>
+          </tr>
+        </tfoot>
+        <tbody>
+          {todoComponentsCompleted}
         </tbody>
       </table>
     </div>

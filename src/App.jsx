@@ -25,6 +25,7 @@ class App extends React.Component {
     this.renderButton = this.renderButton.bind(this);
     this.cancelUpdateAndAdd = this.cancelUpdateAndAdd.bind(this);
     this.completeTodo = this.completeTodo.bind(this);
+    this.unCompleteTodo = this.unCompleteTodo.bind(this);
   }
 
   componentDidMount() {
@@ -45,6 +46,10 @@ class App extends React.Component {
       .then(() => this.setState({ tempTodoDescription: '' }))
       .then(() => this.grabTodos());
   }
+
+  // I tried to destructure the handleInputChange function
+  //  but had some issues. See the commented out version.
+  //  It should work but dosent.
 
   handleInputChange(event) {
     // const target = event.target;
@@ -82,16 +87,17 @@ class App extends React.Component {
       .then(data => this.setState({ todos: data }));
   }
 
+  // refactor editTodo to find the element
+  // by name not the number it appears in the
+  // todo.jsx file div.  It's to prone to bugs from editing.
   editTodo(event) {
     const item = event.target.parentNode.parentNode;
-    const getDescription = item.childNodes[1].textContent;
-    const getRecurring = item.childNodes[2].textContent === 'yes';
-    const getCompleted = item.childNodes[0].textContent === 'yes';
+    const getDescription = item.childNodes[0].textContent;
+    const getRecurring = item.childNodes[1].textContent === 'yes';
     const id = event.target.name;
     this.setState({
       tempTodoDescription: getDescription,
       tempRecurringStatus: getRecurring,
-      tempCompletedStatus: getCompleted,
       editingToDo: true,
       idOfTodDoBeingEdited: id,
     });
@@ -131,32 +137,7 @@ class App extends React.Component {
       .then(() => this.grabTodos());
   }
 
-  // completeTodo(event) {
-  //   console.log(event.target.name);
-  //   (this.setState({
-  //     tempCompletedStatus: true,
-  //     idOfTodDoBeingEdited: event.target.name,
-  //   }));
-  //   const {
-  //     tempCompletedStatus,
-  //     idOfTodDoBeingEdited,
-  //   } = this.state;
-  //   fetch(`/todo/${idOfTodDoBeingEdited}`, {
-  //     method: 'put',
-  //     body: JSON.stringify({
-  //       completed: tempCompletedStatus,
-  //     }),
-  //     headers: { 'content-type': 'application/json' },
-  //   })
-  //     .then(() => this.setState({
-  //       // tempTodoDescription: '',
-  //       // tempRecurringStatus: false,
-  //       tempCompletedStatus: false,
-  //       // editingToDo: false,
-  //       idOfTodDoBeingEdited: null,
-  //     }))
-  //     .then(() => this.grabTodos());
-  // }
+  // the completeTodo and unCompleteTodo functions should be refactored into a toggle function.
 
   completeTodo(event) {
     const id = event.target.name;
@@ -164,6 +145,18 @@ class App extends React.Component {
       method: 'put',
       body: JSON.stringify({
         completed: true,
+      }),
+      headers: { 'content-type': 'application/json' },
+    })
+      .then(() => this.grabTodos());
+  }
+
+  unCompleteTodo(event) {
+    const id = event.target.name;
+    fetch(`/todo/${id}`, {
+      method: 'put',
+      body: JSON.stringify({
+        completed: false,
       }),
       headers: { 'content-type': 'application/json' },
     })
@@ -202,6 +195,8 @@ class App extends React.Component {
         deleteTodo={this.deleteTodo}
         editTodo={this.editTodo}
         completeTodo={this.completeTodo}
+        unCompleteTodo={this.unCompleteTodo}
+        // toggleCompleted={this.toggleCompleted}
         />
       </div>
     );

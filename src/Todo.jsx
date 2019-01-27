@@ -9,21 +9,23 @@ const Todo = ({
   deleteTodo,
   editTodo,
   completeTodo,
+  unCompleteTodo,
+  // toggleCompleted,
 
 }) => {
-  let recurringDisplayText = 'no';
-  let completedDisplayText = 'no';
-  if (recurring) { recurringDisplayText = 'yes'; }
-  if (completed) { completedDisplayText = 'yes'; }
+  let recurringDisplayText = 'non-recurring';
+  let completeButtonRender = <button type="button" name={id} onClick={completeTodo}>Mark Completed</button>;
+  if (recurring) { recurringDisplayText = 'recurring'; }
+  if (completed) { completeButtonRender = <button type="button" name={id} onClick={unCompleteTodo}>Mark Un Completed</button>; }
   return (
     <div key={id}>
       <tr>
-        <td>{completedDisplayText}</td>
-        <td>{description}</td>
-        <td>{recurringDisplayText}</td>
+        {/* <td>{completedDisplayText}</td> */}
+        <td width="100px">{description}</td>
+        <td width="100px">{recurringDisplayText}</td>
         <td><button type="button" name={id} onClick={deleteTodo}>Delete</button></td>
         <td><button type="button" name={id} onClick={editTodo}>Edit</button></td>
-        <td><button type="button" name={id} onClick={completeTodo}>Mark Completed</button></td>
+        <td>{completeButtonRender}</td>
       </tr>
     </div>
   );
@@ -37,6 +39,7 @@ Todo.propTypes = {
   deleteTodo: PropTypes.function,
   editTodo: PropTypes.function,
   completeTodo: PropTypes.function,
+  unCompleteTodo: PropTypes.function,
 };
 
 
