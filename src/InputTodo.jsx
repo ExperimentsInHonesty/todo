@@ -3,15 +3,36 @@ import PropTypes from 'prop-types';
 
 const InputTodo = props => (
   <div>
-    <input type="text" name="newTodo" id="todoInput" value={props.currentInput} onChange={props.storingInputInState} />
-    {props.renderButton()}
+    <label>
+      Description
+      <input
+        type="text"
+        name="tempTodoDescription"
+        value={props.descriptionInState}
+        onChange={props.handleInputChange}
+      />
+    </label>
+    <br/>
+    <label>
+      Recurring:
+      <input
+        type="checkbox"
+        name="tempRecurringStatus"
+        checked={props.recuringStatusInState}
+        onChange={props.handleInputChange}
+      />
+    </label>
+    <br/>{props.renderButton()}
+    <button type="button" onClick={props.cancelUpdateAndAdd}>Cancel</button>
   </div>
 );
 
 InputTodo.propTypes = {
-  currentInput: PropTypes.func,
-  storingInputInState: PropTypes.func,
+  descriptionInState: PropTypes.func,
+  recuringStatusInState: PropTypes.func,
+  handleInputChange: PropTypes.func,
   renderButton: PropTypes.func,
+  cancelUpdateAndAdd: PropTypes.func,
 };
 
 export default InputTodo;

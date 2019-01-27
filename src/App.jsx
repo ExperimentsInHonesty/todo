@@ -11,16 +11,19 @@ class App extends React.Component {
     this.state = {
       todos: [],
       tempTodoDescription: '',
+      tempRecurringStatus: false,
+      tempCompletedStatus: false,
       editingToDo: false,
       idOfTodDoBeingEdited: null,
     };
     this.grabTodos = this.grabTodos.bind(this);
     this.inputTodo = this.inputTodo.bind(this);
-    this.storingTempTodo = this.storingTempTodo.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.editTodo = this.editTodo.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
     this.renderButton = this.renderButton.bind(this);
+    this.cancelUpdateAndAdd = this.cancelUpdateAndAdd.bind(this);
   }
 
   componentDidMount() {
@@ -28,10 +31,13 @@ class App extends React.Component {
   }
 
   inputTodo() {
-    const { tempTodoDescription } = this.state;
+    const { tempTodoDescription, tempRecurringStatus } = this.state;
     fetch('/todo/', {
       method: 'post',
-      body: JSON.stringify({ description: tempTodoDescription }),
+      body: JSON.stringify({
+        description: tempTodoDescription,
+        recurring: tempRecurringStatus,
+      }),
       headers: { 'content-type': 'application/json' },
     })
       // .then(response => response.json())
@@ -39,12 +45,27 @@ class App extends React.Component {
       .then(() => this.grabTodos());
   }
 
-  storingTempTodo(event) {
-    const tempTodoDescription = event.target.value;
-    this.setState({ tempTodoDescription });
-    // console.log(tempTodoDescription)
-    // setTimeout(()=>console.log(this.state), 1000);
+  handleInputChange(event) {
+    // const target = event.target;
+    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value,
+    });
   }
+
+  // handleInputChange(event) {
+  //   const {
+  //     checked,
+  //     name,
+  //     type,
+  //     target,
+  //   } = event.target;
+  //   const value = type === 'checkbox' ? checked : target.value;
+  //   this.setState({
+  //     [name]: value,
+  //   });
+  // }
 
   deleteTodo(event) {
     const id = event.target.name;
@@ -61,24 +82,48 @@ class App extends React.Component {
   }
 
   editTodo(event) {
-    const getDescription = event.target.parentNode.parentNode.childNodes[1].textContent;
+    const item = event.target.parentNode.parentNode;
+    const getDescription = item.childNodes[1].textContent;
+    const getRecurring = item.childNodes[2].textContent === 'yes';
+    const getCompleted = item.childNodes[0].textContent === 'yes';
     const id = event.target.name;
     this.setState({
       tempTodoDescription: getDescription,
+      tempRecurringStatus: getRecurring,
+      tempCompletedStatus: getCompleted,
       editingToDo: true,
       idOfTodDoBeingEdited: id,
     });
   }
 
+  cancelUpdateAndAdd() {
+    this.setState({
+      tempTodoDescription: '',
+      tempRecurringStatus: false,
+      tempCompletedStatus: false,
+      editingToDo: false,
+      idOfTodDoBeingEdited: null,
+    });
+  }
+
   updateTodo() {
-    const { tempTodoDescription, idOfTodDoBeingEdited } = this.state;
+    const {
+      tempTodoDescription,
+      idOfTodDoBeingEdited,
+      tempRecurringStatus,
+    } = this.state;
     fetch(`/todo/${idOfTodDoBeingEdited}`, {
       method: 'put',
-      body: JSON.stringify({ description: tempTodoDescription }),
+      body: JSON.stringify({
+        description: tempTodoDescription,
+        recurring: tempRecurringStatus,
+      }),
       headers: { 'content-type': 'application/json' },
     })
       .then(() => this.setState({
         tempTodoDescription: '',
+        tempRecurringStatus: false,
+        tempCompletedStatus: false,
         editingToDo: false,
         idOfTodDoBeingEdited: null,
       }))
@@ -97,14 +142,20 @@ class App extends React.Component {
   }
 
   render() {
-    const { todos, tempTodoDescription } = this.state;
+    const {
+      todos,
+      tempTodoDescription,
+      tempRecurringStatus,
+    } = this.state;
     return (
       <div>
-        <p>Put text here</p>
+        <p>Todo List</p>
         <InputTodo
-        storingInputInState={this.storingTempTodo}
-        currentInput={tempTodoDescription}
+        handleInputChange={this.handleInputChange}
+        descriptionInState={tempTodoDescription}
+        recuringStatusInState={tempRecurringStatus}
         renderButton={this.renderButton}
+        cancelUpdateAndAdd={this.cancelUpdateAndAdd}
         />
         <Display
         allTodos={todos}
