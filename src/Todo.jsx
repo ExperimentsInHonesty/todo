@@ -18,7 +18,7 @@ const Todo = ({
   if (recurring) { recurringDisplayText = 'recurring'; }
   if (completed) { completeButtonRender = <button type="button" name={id} onClick={unCompleteTodo}>Mark Un Completed</button>; }
   return (
-    <div key={id}>
+    <div key={id} name="todo.jsx">
       <tr>
         {/* <td>{completedDisplayText}</td> */}
         <td width="100px">{description}</td>

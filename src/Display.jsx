@@ -65,10 +65,11 @@ const Display = ({
 
   return (
     <div>
-      <table className="blueTable">
+      <table className="blueTable" width="100%">
         <thead>
           <tr>
             <th>Current Todo's</th>
+            <th>description</th>
           </tr>
         </thead>
         <tfoot>
@@ -84,7 +85,7 @@ const Display = ({
           {todoComponents}
         </tbody>
       </table>
-      <table className="blueTable">
+      <table className="blueTable" width="100%">
         <thead>
           <tr>
             <th>Completed Todo's</th>
