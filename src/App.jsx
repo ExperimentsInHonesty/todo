@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 // import PropTypes from 'prop-types';
 import Display from './Display.jsx';
 import InputTodo from './InputTodo.jsx';
+import './styles/normalize.css';
+import './styles/skeleton.css';
 
 
 class App extends React.Component {
@@ -51,27 +53,18 @@ class App extends React.Component {
   //  but had some issues. See the commented out version.
   //  It should work but dosent.
 
+
   handleInputChange(event) {
-    // const target = event.target;
-    const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
-    const name = event.target.name;
+    const {
+      checked,
+      name,
+      type,
+    } = event.target;
+    const value = type === 'checkbox' ? checked : event.target.value;
     this.setState({
       [name]: value,
     });
   }
-
-  // handleInputChange(event) {
-  //   const {
-  //     checked,
-  //     name,
-  //     type,
-  //     target,
-  //   } = event.target;
-  //   const value = type === 'checkbox' ? checked : target.value;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // }
 
   deleteTodo(event) {
     const id = event.target.name;

@@ -68,7 +68,7 @@ const Display = ({
       <table className="blueTable" width="100%">
         <thead>
           <tr>
-            <th>Current Todo's</th>
+            <th>Current Todo&apos;s</th>
             <th>description</th>
           </tr>
         </thead>
@@ -88,7 +88,7 @@ const Display = ({
       <table className="blueTable" width="100%">
         <thead>
           <tr>
-            <th>Completed Todo's</th>
+            <th>Completed Todo&apos;s</th>
           </tr>
         </thead>
         <tfoot>
