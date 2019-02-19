@@ -174,8 +174,8 @@ class App extends React.Component {
       tempRecurringStatus,
     } = this.state;
     return (
-      <div>
-        <p>Todo List</p>
+      <div className='container'>
+        <h3>Todo List</h3>
         <InputTodo
         handleInputChange={this.handleInputChange}
         descriptionInState={tempTodoDescription}

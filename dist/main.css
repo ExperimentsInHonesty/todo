@@ -846,14 +846,26 @@ there.
 
 
 body {
-  line-height: 2;
-  font-family: Arial, Helvetica, sans-serif;
 }
 
-table.blueTable {
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.center > input {
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.input-buttons {
+  display: flex;
+  align-items: center;
+}
+
+/* table.blueTable {
   border: 1px solid #1C6EA4;
   background-color: #EEEEEE;
-  width: 100%;
   text-align: left;
   border-collapse: collapse;
 }
@@ -906,4 +918,4 @@ table.blueTable tfoot .links a{
   color: #FFFFFF;
   padding: 2px 8px;
   border-radius: 5px;
-}
+} */
