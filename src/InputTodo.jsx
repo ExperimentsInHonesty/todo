@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const InputTodo = props => (
-  <div>
-    <label>
+  <div className='row'>
+  <div className='five columns'>
+    <label className='input-container'>
       Description
       <input
         type="text"
@@ -12,9 +13,10 @@ const InputTodo = props => (
         onChange={props.handleInputChange}
       />
     </label>
-    <br/>
-    <label>
-      Recurring:
+    </div>
+    <div className='two columns'>
+    <label className='input-container center'>
+      Recurring
       <input
         type="checkbox"
         name="tempRecurringStatus"
@@ -22,8 +24,11 @@ const InputTodo = props => (
         onChange={props.handleInputChange}
       />
     </label>
-    <br/>{props.renderButton()}
+    </div>
+    <div className='five columns input-buttons'>
+    {props.renderButton()}
     <button type="button" onClick={props.cancelUpdateAndAdd}>Cancel</button>
+    </div>
   </div>
 );
 
